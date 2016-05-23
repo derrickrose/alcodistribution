@@ -17,7 +17,7 @@ public class Crawler {
 
       HttpResponse response = null;
       try {
-         String url = "http://www.grossiste-en-ligne.com/vetement-femme/robe";
+         String url = "http://www.alcodistributions.fr/catalogo/categorias/030211//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Bandouli%C3%A8res";
          response = ConnectionHandler.getResponse(url, null, null, EngineContext.MethodType.GET_METHOD);
          Page page = (Page) ParsingTemplate.getAppropriateParsingTemplate(response).parse(url, response, null);
          ArrayList<Product> products = new ArrayList<Product>();

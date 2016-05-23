@@ -1,11 +1,11 @@
 package com.pushtech.crawler.parsing;
 
-import static org.apache.http.protocol.HTTP.UTF_8;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+
+import liquibase.util.StreamUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -16,8 +16,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.pushtech.crawler.beans.Page;
-
-import liquibase.util.StreamUtil;
 
 public class PageParsing implements ParsingTemplate {
    protected PageParsing() {
@@ -57,12 +55,12 @@ public class PageParsing implements ParsingTemplate {
       if (contentEncodingHeader != null) {
          String encoding = contentEncodingHeader.getValue();
          if (encoding.contains("gzip")) {
-            InputStreamReader reader = new InputStreamReader(new GzipDecompressingEntity(response.getEntity()).getContent(), UTF_8);
+            InputStreamReader reader = new InputStreamReader(new GzipDecompressingEntity(response.getEntity()).getContent(), "iso-8859-1");
             String content = StreamUtil.getReaderContents(reader);
             return StringUtils.trim(content);
          }
       }
-      return StringUtils.trim(EntityUtils.toString(response.getEntity(), UTF_8));
+      return StringUtils.trim(EntityUtils.toString(response.getEntity(), "iso-8859-1"));
    }
 
    private Document getDocument(String content) {

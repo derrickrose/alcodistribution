@@ -4,6 +4,16 @@ public class Product {
 
    private int id = 0, parentId = 0;
    private String name = "", link = "", description = "", brand = "", category = "", image = "";
+   private String keyword = "";
+
+   public String getKeyword() {
+      return keyword;
+   }
+
+   public void setKeyword(String keyword) {
+      this.keyword = keyword;
+   }
+
    private float price = -1f, shippingCost = -1f;
    private int shippingDelay = 0, quantity = 0;
 

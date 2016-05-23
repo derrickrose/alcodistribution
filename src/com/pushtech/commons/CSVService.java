@@ -24,6 +24,7 @@ public class CSVService {
       data += product.getName() + separator;
       data += product.getLink() + separator;
       data += product.getDescription() + separator;
+      data += product.getKeyword() + separator;
       data += product.getPrice() + separator;
       data += product.getShippingCost() + separator;
       data += product.getShippingDelay() + separator;
@@ -39,11 +40,11 @@ public class CSVService {
       Date date = new Date();
       String path = new File("").getAbsolutePath();
       System.out.println(path);
-      String sfile = path + "/grossistefemme" + dateFormat.format(date) + ".csv";
+      String sfile = path + "/alcodistributions" + dateFormat.format(date) + ".csv";
       OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(sfile));
 
       PrintWriter pw = new PrintWriter(out);
-      pw.write("productId;Name;Link;Description;Price HT;Shipping Cost HT;Shipping Delay;Brand;Category;Quantity\n");
+      pw.write("productId;Name;Link;Description;Key word;Price HT;Shipping Cost HT;Shipping Delay;Brand;Category;Quantity\n");
 
       for (Product p : products) {
          createCSV(pw, getProductLineForCSV(p, separator));

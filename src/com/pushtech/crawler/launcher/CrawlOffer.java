@@ -30,6 +30,15 @@ public class CrawlOffer {
       Product product = new Product();
       final Document productPageDocument = page.getDoc();
 
+      String strProductId = null;
+      try {
+         strProductId = getProductId(productPageDocument);
+      } catch (Exception e1) {
+         e1.printStackTrace();
+      }
+      product.setId(Integer.parseInt(strProductId));
+      System.out.println("Product Id : " + strProductId);
+
       String name = null;
       try {
          name = getName(productPageDocument);
@@ -58,20 +67,10 @@ public class CrawlOffer {
       System.out.println("Description : " + description);
 
       String brand = null;
-      try {
-         brand = getBrand(productPageDocument);
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
       product.setBrand(brand);
       System.out.println("Brand : " + brand);
 
       String category = null;
-      try {
-         category = getCategory(productPageDocument);
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
       product.setCategory(category);
       System.out.println("Category : " + category);
 
@@ -93,35 +92,40 @@ public class CrawlOffer {
       product.setPrice(price);
       System.out.println("Price : " + price);
 
-      float shippingCost = -1f;
+      String strKeyword = null;
       try {
-         shippingCost = getShippingCost(productPageDocument);
+         strKeyword = getKeywords(productPageDocument);
       } catch (Exception e) {
+         // TODO Auto-generated catch block
          e.printStackTrace();
       }
+      product.setKeyword(strKeyword);
+      System.out.println("Keyword : " + strKeyword);
+
+      float shippingCost = -1f;
+
       product.setShippingCost(shippingCost);
       System.out.println("Shipping cost : " + shippingCost);
 
       int shippingDelay = 0;
-      try {
-         shippingDelay = getShippingDelay(getShippingDelayRaw(productPageDocument));
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
+
       product.setShippingDelay(shippingDelay);
       System.out.println("Shipping delay : " + shippingDelay);
 
       int quantity = 0;
-      try {
-         quantity = getQuantity(productPageDocument);
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
       product.setQuantity(quantity);
       System.out.println("Quantity : " + quantity);
 
       return product;
 
+   }
+
+   private String getProductId(final Document productPageDocument) throws Exception {
+      final Element productIdElement = findElement(productPageDocument, Selectors.PRODUCT_IDENTIFIER); // TODO
+      String productId = fromElementText(productIdElement);
+      productId = validateField(productId, "Product Id");
+      productId = productId.replace("Cod. Article ", "").trim();
+      return productId;
    }
 
    // example
@@ -146,12 +150,19 @@ public class CrawlOffer {
       return description;
    }
 
-   private String getBrand(final Document productPageDocument) throws Exception {
-      final Element brandElement = findElement(productPageDocument, Selectors.PRODUCT_BRAND); // TODO
-      String brand = fromElementText(brandElement);
-      brand = validateField(brand, "Brand");
-      return brand;
+   private String getKeywords(final Document productPageDocument) throws Exception {
+      final Element descriptionElement = findElement(productPageDocument, Selectors.PRODUCT_KEYWORDS); // TODO
+      String description = fromAttribute(descriptionElement, "content");
+      description = validateField(description, "Description");
+      return description;
    }
+
+   // private String getBrand(final Document productPageDocument) throws Exception {
+   // final Element brandElement = findElement(productPageDocument, Selectors.PRODUCT_BRAND); // TODO
+   // String brand = fromElementText(brandElement);
+   // brand = validateField(brand, "Brand");
+   // return brand;
+   // }
 
    private String getCategory(final Document productPageDocument) throws Exception {
       final Element categoryElement = findElement(productPageDocument, Selectors.PRODUCT_CATEGORY); // TODO
@@ -164,17 +175,14 @@ public class CrawlOffer {
       final Element imageElement = findElement(productPageDocument, Selectors.PRODUCT_IMAGE); // TODO
       String image = fromAttribute(imageElement, "src");
       image = validateField(image, "Image");
+      image = cleanPath(image);
       return image;
    }
 
    private float getPrice(final Element element) {
       final Element priceElement = findElement(element, Selectors.PRODUCT_PRICE);// TODO
-      String priceRaw = fromElementText(priceElement);
+      String priceRaw = fromAttribute(priceElement, "value");
       priceRaw = validateField(priceRaw, "Price", 1);
-      final Element decimalPriceElement = findElement(element, Selectors.PRODUCT_DECIMAL_PRICE);
-      String decimalPriceRaw = fromElementText(decimalPriceElement);
-      decimalPriceRaw = validateField(decimalPriceRaw, "Decimal price", 1);
-      if (StringUtils.isNotBlank(decimalPriceRaw)) priceRaw = priceRaw + "," + decimalPriceRaw;
       return parseLocalizedPrice(priceRaw);
    }
 
@@ -186,17 +194,17 @@ public class CrawlOffer {
       return 3.9f;
    }
 
-   private int getQuantity(final Element element) throws Exception {
-      Element quantityElement = findElement(element, Selectors.PRODUCT_QUANTITY);// TODO
-      String quantityRaw = fromElementText(quantityElement);
-      quantityRaw = validateField(quantityRaw, "Quantity", 1);
-      try {
-         return Integer.parseInt(quantityRaw.replaceAll("[^\\d]", ""));
-      } catch (Exception e) {
-         System.err.println("Unparsable quantity raw : " + quantityRaw);
-         return 0;
-      }
-   }
+   // private int getQuantity(final Element element) throws Exception {
+   // Element quantityElement = findElement(element, Selectors.PRODUCT_QUANTITY);// TODO
+   // String quantityRaw = fromElementText(quantityElement);
+   // quantityRaw = validateField(quantityRaw, "Quantity", 1);
+   // try {
+   // return Integer.parseInt(quantityRaw.replaceAll("[^\\d]", ""));
+   // } catch (Exception e) {
+   // System.err.println("Unparsable quantity raw : " + quantityRaw);
+   // return 0;
+   // }
+   // }
 
    private int getShippingDelay(final String delayRaw) {// TODO
       // if (StringUtils.isNotBlank(delayRaw)) {
@@ -341,6 +349,13 @@ public class CrawlOffer {
          return StringUtils.EMPTY;
       }
       return value;
+   }
+
+   private static String cleanPath(String path) {
+      if (!StringUtils.startsWith(path, "http:")) {
+         return "http://www.alcodistributions.fr" + path;
+      }
+      return path;
    }
 
 }

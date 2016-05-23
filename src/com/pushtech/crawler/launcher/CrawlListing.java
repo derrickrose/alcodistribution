@@ -38,8 +38,9 @@ public class CrawlListing {
    }
 
    private static String cleanPath(String path) {
+      path = path.replace("" + (char) 201, "%C3%89").replace(" ", "%20").replace("" + (char) 232, "%C3%A8");
       if (!StringUtils.startsWith(path, "http:")) {
-         return "http://www.grossiste-en-ligne.com" + path;
+         return "http://www.alcodistributions.fr" + path;
       }
       return path;
    }
