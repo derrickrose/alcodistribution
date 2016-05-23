@@ -48,14 +48,14 @@ public class CrawlOffer {
       product.setName(name);
       System.out.println("Name : " + name);
 
-      String link = null;
-      try {
-         link = getLink(productPageDocument);
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      product.setLink(link);
-      System.out.println("Link : " + link);
+//      String link = null;
+//      try {
+//         link = getLink(productPageDocument);
+//      } catch (Exception e) {
+//         e.printStackTrace();
+//      }
+//      product.setLink(link);
+//      System.out.println("Link : " + link);
 
       String description = null;
       try {

@@ -27,6 +27,23 @@ public class CrawlListing {
       return doc.select(Selectors.LISTING_PAGE_PRODUCTS);
    }
 
+   private static Element getNextPageElement(Document doc) {
+      return doc.select(Selectors.NEXT_PAGE_LINK).first();
+   }
+
+   public static String getNextPageLink(Document doc) {
+      Element nextPageElement = getNextPageElement(doc);
+      String nextPageLink = fromUrlAttribute(nextPageElement);
+      System.out.println("Next page : " + nextPageLink);
+      return nextPageLink;
+   }
+
+   private static String fromUrlAttribute(Element element) {
+      String url = null;
+      if (element != null) url = element.attr("href");
+      return cleanPath(url);
+   }
+
    private static String getProductLink(Element item) {
       Element product = item.select(Selectors.LISTING_PAGE_PRODUCT_LINK).first();
       if (product != null) {
@@ -38,6 +55,7 @@ public class CrawlListing {
    }
 
    private static String cleanPath(String path) {
+      if (path == null) return null;
       path = path.replace("" + (char) 201, "%C3%89").replace(" ", "%20").replace("" + (char) 232, "%C3%A8");
       if (!StringUtils.startsWith(path, "http:")) {
          return "http://www.alcodistributions.fr" + path;
