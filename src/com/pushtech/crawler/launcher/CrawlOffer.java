@@ -36,7 +36,7 @@ public class CrawlOffer {
       } catch (Exception e1) {
          e1.printStackTrace();
       }
-      product.setId(Integer.parseInt(strProductId));
+      product.setId(strProductId);
       System.out.println("Product Id : " + strProductId);
 
       String name = null;

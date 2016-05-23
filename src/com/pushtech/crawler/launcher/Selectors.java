@@ -12,7 +12,7 @@ public class Selectors {
    public static final String PRODUCT_LINK = "td:has(input[name=codigo]):has(table) a:not(:has(img))";
    public static final String PRODUCT_DESCRIPTION = "meta[name=Description]";
    public static final String PRODUCT_KEYWORDS = "meta[name=keywords]";
-   public static final String PRODUCT_IDENTIFIER = "span.mini";
+   public static final String PRODUCT_IDENTIFIER = "span.mini:contains(Cod)";
 
    public static final String PRODUCT_CATEGORY = ".crumb0>a";
    public static final String PRODUCT_IMAGE = "img[name=foto]";
