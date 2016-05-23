@@ -2,7 +2,7 @@ package com.pushtech.commons;
 
 public class Product {
 
-   private int id = 0, parentId = 0;
+   private String id = "" + 0, parentId = "" + 0;
    private String name = "", link = "", description = "", brand = "", category = "", image = "";
    private String keyword = "";
 
@@ -17,11 +17,11 @@ public class Product {
    private float price = -1f, shippingCost = -1f;
    private int shippingDelay = 0, quantity = 0;
 
-   public int getId() {
+   public String getId() {
       return id;
    }
 
-   public int getParentId() {
+   public String getParentId() {
       return parentId;
    }
 
@@ -65,11 +65,11 @@ public class Product {
       return quantity;
    }
 
-   public void setId(int id) {
+   public void setId(String id) {
       this.id = id;
    }
 
-   public void setParentId(int parentId) {
+   public void setParentId(String parentId) {
       this.parentId = parentId;
    }
 
