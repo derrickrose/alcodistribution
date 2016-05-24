@@ -40,8 +40,9 @@ public class CSVService {
       Date date = new Date();
       String path = new File("").getAbsolutePath();
       System.out.println(path);
-      String sfile = path + "/alcodistributions" + dateFormat.format(date) + ".csv";
-      OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(sfile));
+      // String sfile = path + "/alcodistributions" + dateFormat.format(date) + ".csv";
+      String sfile2 = "/home/workdev/Bureau/shared/alco/ato_izao/" + dateFormat.format(date) + ".csv";
+      OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(sfile2));
 
       PrintWriter pw = new PrintWriter(out);
       pw.write("productId;Name;Link;Description;Key word;Price HT;Shipping Cost HT;Shipping Delay;Brand;Category;Quantity\n");

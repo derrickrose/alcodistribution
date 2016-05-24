@@ -18,6 +18,7 @@ import org.joda.time.format.PeriodFormat;
 import org.joda.time.format.PeriodFormatter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
@@ -30,14 +31,14 @@ public class CrawlOffer {
       Product product = new Product();
       final Document productPageDocument = page.getDoc();
 
-      String strProductId = null;
-      try {
-         strProductId = getProductId(productPageDocument);
-      } catch (Exception e1) {
-         e1.printStackTrace();
-      }
-      product.setId(strProductId);
-      System.out.println("Product Id : " + strProductId);
+      // String strProductId = null;
+      // try {
+      // strProductId = getProductId(productPageDocument);
+      // } catch (Exception e1) {
+      // e1.printStackTrace();
+      // }
+      // product.setId(strProductId);
+      // System.out.println("Product Id : " + strProductId);
 
       String name = null;
       try {
@@ -121,11 +122,19 @@ public class CrawlOffer {
    }
 
    private String getProductId(final Document productPageDocument) throws Exception {
-      final Element productIdElement = findElement(productPageDocument, Selectors.PRODUCT_IDENTIFIER); // TODO
-      String productId = fromElementText(productIdElement);
+      final Elements productIdElements = productPageDocument.select(Selectors.PRODUCT_IDENTIFIER);
+      String productIdRaw = null;
+      for (Element element : productIdElements) {
+         productIdRaw = element.text();
+         if (productIdRaw.contains("rticle")) {
+            break;
+         }
+      }
+      // TODO
+      String productId = productIdRaw;
       productId = validateField(productId, "Product Id");
       productId = productId.replace("Cod. Article ", "").trim();
-      return productId;
+      return productId.replaceAll("[^\\d]", "");
    }
 
    // example
