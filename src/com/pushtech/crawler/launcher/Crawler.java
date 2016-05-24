@@ -1,3 +1,4 @@
+package com.pushtech.crawler.launcher;
 
 import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
 
@@ -10,9 +11,6 @@ import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
 import com.pushtech.crawler.connection.ConnectionHandler;
 import com.pushtech.crawler.connection.EngineContext;
-import com.pushtech.crawler.launcher.CrawlListing;
-import com.pushtech.crawler.launcher.CrawlOffer;
-import com.pushtech.crawler.launcher.PageType;
 import com.pushtech.crawler.parsing.ParsingTemplate;
 
 public class Crawler {

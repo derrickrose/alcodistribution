@@ -22,6 +22,5 @@ public class Selectors {
    public static final String LISTING_PAGE_IDENTIFIER = "td:has(input[name=codigo]):has(table)";
    public static final String LISTING_PAGE_PRODUCTS = "td:has(input[name=codigo]):has(table)";
    public static final String LISTING_PAGE_PRODUCT_LINK = "td:has(input[name=codigo]):has(table) a:not(:has(img))";
-   public static final String NEXT_PAGE_PRODUCT_LINK = "a[name=siguiente_pagina]";// TODO
-
+   public static final String NEXT_PAGE_LINK = "a[name=siguiente_pagina]";// TODO
 }
