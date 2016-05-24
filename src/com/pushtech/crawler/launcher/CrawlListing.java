@@ -18,6 +18,9 @@ public class CrawlListing {
       for (Element item : items) {
          String link = getProductLink(item);
          System.out.println("Path :" + link);
+         // for (char a : link.toCharArray()) {
+         // System.err.println(" " + ((int) a) + " " + a);
+         // }
          products.add(link);
       }
       return products;
@@ -57,9 +60,19 @@ public class CrawlListing {
    private static String cleanPath(String path) {
       if (path == null) return null;
       path = path.replace("" + (char) 201, "%C3%89").replace(" ", "%20").replace("" + (char) 232, "%C3%A8");
+      path = path.replace("" + ((char) 96), "%60").replace("" + ((char) 233), "%C3%A9");
       if (!StringUtils.startsWith(path, "http:")) {
-         return "http://www.alcodistributions.fr" + path;
+         path = "http://www.alcodistributions.fr" + path;
+
       }
+      // try {
+      // path = URIUtil.encodeQuery(URIUtil.decode(path));
+      // } catch (URIException e) {
+      // // TODO Auto-generated catch block
+      // // return path;
+      // System.out.println("tsssssssss mety ttttttttttttt");
+      // e.printStackTrace();
+      // }
       return path;
    }
 }

@@ -41,7 +41,7 @@ public class CSVService {
       String path = new File("").getAbsolutePath();
       System.out.println(path);
       // String sfile = path + "/alcodistributions" + dateFormat.format(date) + ".csv";
-      String sfile2 = "/home/workdev/Bureau/shared/alco/ato_izao/" + dateFormat.format(date) + ".csv";
+      String sfile2 = "/home/workdev/Bureau/shared/alco/ete/promotionDEte/" + dateFormat.format(date) + ".csv";
       OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(sfile2));
 
       PrintWriter pw = new PrintWriter(out);
