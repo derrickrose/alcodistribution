@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 
-import com.pushtech.commons.CSVService;
 import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
 import com.pushtech.crawler.connection.ConnectionHandler;
 import com.pushtech.crawler.connection.EngineContext;
 import com.pushtech.crawler.parsing.ParsingTemplate;
+import com.pushtech.crawler.persistance.Persistance;
 
 public class Crawler {
 
@@ -22,7 +22,7 @@ public class Crawler {
          ArrayList<Product> products = new ArrayList<Product>();
          boolean continueCrawl = true;
          Page page = null;
-         String url = "http://www.alcodistributions.fr/catalogo/categorias/080203//%C3%89T%C3%89/Promotions%20d%60%C3%A9t%C3%A9/Mode%20et%20textile";
+         String url = "http://www.alcodistributions.fr/catalogo/categorias/030212//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Cadeau%20Juv%C3%A9nile";
 
          try {
             while (continueCrawl) {
@@ -42,7 +42,8 @@ public class Crawler {
                         product.setLink(link);
                         System.out.println("Link : " + link);
                         product.setId(getIdFromLink(link));
-                        products.add(product);
+                        // products.add(product);
+                        Persistance.sauverEnBase(product);
                         id++;
                         // break;
                      } catch (Exception e) {
@@ -58,8 +59,8 @@ public class Crawler {
 
          }
 
-         CSVService csvService = new CSVService();
-         csvService.buildCSV(products, ";");
+         // CSVService csvService = new CSVService();
+         // csvService.buildCSV(products, ";");
 
       } catch (Exception e) {
          e.printStackTrace();
