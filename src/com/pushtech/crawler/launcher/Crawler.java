@@ -22,7 +22,7 @@ public class Crawler {
          ArrayList<Product> products = new ArrayList<Product>();
          boolean continueCrawl = true;
          Page page = null;
-         String url = "http://www.alcodistributions.fr/catalogo/categorias/030212//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Cadeau%20Juv%C3%A9nile";
+         String url = "http://www.alcodistributions.fr/catalogo/categorias/0687//LICENCES/Descendants";
 
          try {
             while (continueCrawl) {

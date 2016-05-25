@@ -12,10 +12,11 @@ public class Persistance {
 
    public static void sauverEnBase(Product produit) {
 
-      // Information d'accès à la base de données
-      String url = "jdbc:mysql://localhost/crawl";
-      String login = "root";
-      String passwd = "";
+      // Information d'accï¿½s ï¿½ la base de donnï¿½es
+      // String url = "jdbc:mysql://localhost/crawl";
+      String url = "jdbc:mysql://Devworkit-005/crawl";
+      String login = "workdev";
+      String passwd = "javdev2";
       Connection cn = null;
       Statement st = null;
 
@@ -24,10 +25,10 @@ public class Persistance {
          // Etape 1 : Chargement du driver
          Class.forName("com.mysql.jdbc.Driver");
 
-         // Etape 2 : récupération de la connexion
+         // Etape 2 : rï¿½cupï¿½ration de la connexion
          cn = DriverManager.getConnection(url, login, passwd);
 
-         // Etape 3 : Création d'un statement
+         // Etape 3 : Crï¿½ation d'un statement
          st = cn.createStatement();
          String request = "'" + produit.getId() + "','" + produit.getName() + "',";
          request += "'" + produit.getLink() + "','" + produit.getDescription() + "',";
@@ -38,10 +39,10 @@ public class Persistance {
 
          String sql = "INSERT INTO `alcodistribution` VALUES (" + request + ")";
 
-         // Etape 4 : exécution requête
+         // Etape 4 : exï¿½cution requï¿½te
          st.executeUpdate(sql);
 
-         // Si récup données alors étapes 5 (parcours Resultset)
+         // Si rï¿½cup donnï¿½es alors ï¿½tapes 5 (parcours Resultset)
 
       } catch (SQLException e) {
          e.printStackTrace();
@@ -50,7 +51,7 @@ public class Persistance {
          e.printStackTrace();
       } finally {
          try {
-            // Etape 6 : libérer ressources de la mémoire.
+            // Etape 6 : libï¿½rer ressources de la mï¿½moire.
             cn.close();
             st.close();
          } catch (SQLException e) {
@@ -61,7 +62,7 @@ public class Persistance {
 
    public static void lireEnBase() {
 
-      // Information d'accès à la base de données
+      // Information d'accï¿½s ï¿½ la base de donnï¿½es
       String url = "jdbc:mysql://localhost/formation";
       String login = "root";
       String passwd = "";
@@ -74,18 +75,18 @@ public class Persistance {
          // Etape 1 : Chargement du driver
          Class.forName("com.mysql.jdbc.Driver");
 
-         // Etape 2 : récupération de la connexion
+         // Etape 2 : rï¿½cupï¿½ration de la connexion
          cn = DriverManager.getConnection(url, login, passwd);
 
-         // Etape 3 : Création d'un statement
+         // Etape 3 : Crï¿½ation d'un statement
          st = cn.createStatement();
 
          String sql = "SELECT * FROM javadb";
 
-         // Etape 4 : exécution requête
+         // Etape 4 : exï¿½cution requï¿½te
          rs = st.executeQuery(sql);
 
-         // Si récup données alors étapes 5 (parcours Resultset)
+         // Si rï¿½cup donnï¿½es alors ï¿½tapes 5 (parcours Resultset)
 
          while (rs.next()) {
             System.out.println(rs.getString("personne"));
@@ -97,7 +98,7 @@ public class Persistance {
          e.printStackTrace();
       } finally {
          try {
-            // Etape 6 : libérer ressources de la mémoire.
+            // Etape 6 : libï¿½rer ressources de la mï¿½moire.
             cn.close();
             st.close();
          } catch (SQLException e) {
