@@ -83,7 +83,7 @@ public class Crawler {
       ArrayList<String> listes=new ArrayList<String>();
       Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
       Document doc=productPage.getDoc();
-      Elements elts=doc.select("div.divino>ul>li>div>ul>ul>li>a");
+      Elements elts=doc.select(Selectors.ALL_LISTING);
       if(elts.size()>0){
          for(org.jsoup.nodes.Element data:elts){
             System.out.println("Url :"+data.attr("href"));
