@@ -45,14 +45,20 @@ public class Crawler {
                   } else if (PageType.isListingPage(page)) {
                      int id = 0;
                      for (String link : CrawlListing.getProductLinks(page)) {
+                        Product product=new Product();
+                        System.out.println("Link : " + link);
+                        String productId=getIdFromLink(link);
+                        System.out.println("Product Id :" + productId);
+                        if(Persistance.lireEnBase(productId)){
+                           continue;
+                        }
 
                         try {
                            Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
-                           Product product = new CrawlOffer().doAction(productPage);
-
+                           product = new CrawlOffer().doAction(productPage);
                            product.setLink(link);
-                           System.out.println("Link : " + link);
-                           product.setId(getIdFromLink(link));
+                           product.setId(productId);
+
                            // products.add(product);
                            Persistance.sauverEnBase(product);
                            id++;
