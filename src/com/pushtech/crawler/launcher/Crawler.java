@@ -30,7 +30,7 @@ public class Crawler {
 
          Page page = null;
 
-         String url = "www.alcodistributions.fr/catalogo/categorias/030211//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Bandouli%C3%A8res";
+         String url = "http://www.alcodistributions.fr/catalogo/categorias/030211//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Bandouli%C3%A8res";
 
          try {
 //           ArrayList<String> alllisting=getAllListing(url);
