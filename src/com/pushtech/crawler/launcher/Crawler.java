@@ -52,9 +52,9 @@ public class Crawler {
                         System.out.println("Link : " + link);
                         String productId=getIdFromLink(link);
                         System.out.println("Product Id :" + productId);
-//                        if(Persistance.lireEnBase()){
-//                           continue;
-//                        }
+                        if(Persistance.lireEnBase(productId)){
+                          continue;
+                       }
 
                         try {
                            Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
