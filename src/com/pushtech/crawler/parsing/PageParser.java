@@ -17,8 +17,9 @@ import org.jsoup.nodes.Document;
 
 import com.pushtech.crawler.beans.Page;
 
-public class PageParsing implements ParsingTemplate {
-   protected PageParsing() {
+public class PageParser implements ParsingTemplate {
+	
+   protected PageParser() {
 
    }
 
@@ -66,5 +67,11 @@ public class PageParsing implements ParsingTemplate {
    private Document getDocument(String content) {
       return Jsoup.parse(content);
    }
+
+@Override
+public ParsingTemplate getAppropriateParsingTemplate(Object object) {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 }

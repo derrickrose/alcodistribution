@@ -12,6 +12,7 @@ import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
 import com.pushtech.crawler.connection.ConnectionHandler;
 import com.pushtech.crawler.connection.EngineContext;
+import com.pushtech.crawler.parsing.ParserFactory;
 import com.pushtech.crawler.parsing.ParsingTemplate;
 import com.pushtech.crawler.persistance.Persistance;
 import org.jsoup.nodes.Document;
@@ -29,15 +30,17 @@ public class Crawler {
 
          Page page = null;
 
-         String url = "http://alcodistributions.fr/";
+         String url = "http://www.alcodistributions.fr/catalogo/categorias/030211//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Bandouli%C3%A8res";
 
          try {
-           ArrayList<String> alllisting=getAllListing(url);
-            for(String listing:alllisting){
+//           ArrayList<String> alllisting=getAllListing(url);
+//            for(String listing:alllisting){
                boolean continueCrawl = true;
-               String rayon=listing;
+               String rayon=url;
                while (continueCrawl) {
+            	 
                   page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
+                  System.out.print("ici");
                   if (PageType.isProductPage(page)) {
                      Product product = new CrawlOffer().doAction(page);
                      products.add(product);
@@ -49,9 +52,9 @@ public class Crawler {
                         System.out.println("Link : " + link);
                         String productId=getIdFromLink(link);
                         System.out.println("Product Id :" + productId);
-                        if(Persistance.lireEnBase(productId)){
-                           continue;
-                        }
+//                        if(Persistance.lireEnBase()){
+//                           continue;
+//                        }
 
                         try {
                            Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
@@ -72,7 +75,7 @@ public class Crawler {
                      continueCrawl = rayon != null ? true : false;
                   } else continueCrawl = false;
                }
-            }
+//            }
          } catch (Exception e) {
 
          }
@@ -121,7 +124,7 @@ public class Crawler {
       Page page = null;
       HttpResponse response = null;
       response = ConnectionHandler.getResponse(url, null, null, methodeType);
-      page = (Page) ParsingTemplate.getAppropriateParsingTemplate(response).parse(url, response, null);
+      page = (Page) ParserFactory.getAppropriateParsingTemplate(response).parse(url, response, null);
       return page;
    }
 

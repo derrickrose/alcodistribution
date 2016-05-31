@@ -3,6 +3,7 @@ package com.pushtech.crawler.launcher;
 public class Selectors {
 
    // home page
+	public static final String ALL_LISTING = "td:has(input[name=codigo]):has(table)";
    // category page
    // listing page
 
