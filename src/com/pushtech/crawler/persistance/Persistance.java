@@ -14,9 +14,9 @@ public class Persistance {
 
       // Information d'acc�s � la base de donn�es
       // String url = "jdbc:mysql://localhost/crawl";
-      String url = "jdbc:mysql://Devworkit-005/crawl";
-      String login = "workdev";
-      String passwd = "javdev2";
+      String url = "jdbc:mysql://localhost/crawl";
+      String login = "root";
+      String passwd = "";
       Connection cn = null;
       Statement st = null;
 
@@ -31,7 +31,7 @@ public class Persistance {
          // Etape 3 : Cr�ation d'un statement
          st = cn.createStatement();
          String request = "'" + produit.getId() + "','" + produit.getName() + "',";
-         request += "'" + produit.getLink() + "','" + produit.getDescription() + "',";
+         request += "'" + produit.getLink() + "','" + produit.getImage() + "','" + produit.getDescription() + "',";
          request += "'" + produit.getKeyword() + "'," + produit.getPrice();
          request += "," + produit.getShippingCost() + "," + produit.getShippingDelay();
          request += ",'" + produit.getBrand() + "','" + produit.getCategory() + "'";
@@ -60,10 +60,12 @@ public class Persistance {
       }
    }
 
-   public static void lireEnBase() {
 
-      // Information d'acc�s � la base de donn�es
-      String url = "jdbc:mysql://localhost/formation";
+
+   public static boolean lireEnBase(String productId) {
+
+
+      String url = "jdbc:mysql://localhost/crawl";
       String login = "root";
       String passwd = "";
       Connection cn = null;
@@ -72,26 +74,26 @@ public class Persistance {
 
       try {
 
-         // Etape 1 : Chargement du driver
+
          Class.forName("com.mysql.jdbc.Driver");
 
-         // Etape 2 : r�cup�ration de la connexion
          cn = DriverManager.getConnection(url, login, passwd);
 
-         // Etape 3 : Cr�ation d'un statement
          st = cn.createStatement();
 
-         String sql = "SELECT * FROM javadb";
+         String sql = "SELECT count(*) as isa FROM `alcodistribution` WHERE productId LIKE '%"+productId+"%'";
 
-         // Etape 4 : ex�cution requ�te
          rs = st.executeQuery(sql);
-
-         // Si r�cup donn�es alors �tapes 5 (parcours Resultset)
-
-         while (rs.next()) {
-            System.out.println(rs.getString("personne"));
-
+         while(rs.next()){
+            if(rs.getInt("isa")>0){
+               System.out.println("L'offre existe déjà dans la base");
+               cn.close();
+               st.close();
+               return true;
+            }
          }
+
+
       } catch (SQLException e) {
          e.printStackTrace();
       } catch (ClassNotFoundException e) {
@@ -105,5 +107,6 @@ public class Persistance {
             e.printStackTrace();
          }
       }
+      return false;
    }
 }
