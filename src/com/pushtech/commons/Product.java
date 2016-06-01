@@ -2,17 +2,13 @@ package com.pushtech.commons;
 
 import java.sql.Date;
 
-import org.joda.time.DateTime;
-import org.joda.time.JodaTimePermission;
-
-
 public class Product {
 
    private String id = "" + 0, parentId = "" + 0;
    private String name = "", link = "", description = "", brand = "", category = "", image = "";
    private String keyWord = "";
    private Date updated = null;
-   
+
    public String getKeyword() {
       return keyWord;
    }
@@ -22,18 +18,18 @@ public class Product {
    }
 
    public Date getUpdated() {
-	return updated;
-}
+      return updated;
+   }
 
-public void setUpdated(Date date) {
-	this.updated = date;
-}
+   public void setUpdated(Date date) {
+      this.updated = date;
+   }
 
-public String getKeyWord() {
-	return keyWord;
-}
+   public String getKeyWord() {
+      return keyWord;
+   }
 
-private float price = -1f, shippingCost = -1f;
+   private float price = -1f, shippingCost = -1f;
    private int shippingDelay = 0, quantity = 0;
 
    public String getId() {
@@ -130,5 +126,9 @@ private float price = -1f, shippingCost = -1f;
 
    public void setQuantity(int quantity) {
       this.quantity = quantity;
+   }
+
+   public String toString() {
+      return "Product : " + id + " - " + name;
    }
 }
