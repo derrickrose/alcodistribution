@@ -1,24 +1,24 @@
 package com.pushtech.crawler.launcher;
 
 import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
-import static com.pushtech.crawler.launcher.CrawlListing.getProductLinks;
 
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
 import com.pushtech.crawler.connection.ConnectionHandler;
 import com.pushtech.crawler.connection.EngineContext;
 import com.pushtech.crawler.parsing.ParserFactory;
-import com.pushtech.crawler.parsing.ParsingTemplate;
 import com.pushtech.crawler.persistance.Persistance;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import javax.xml.bind.Element;
+import com.pushtech.crawler.serialization.AbstractDAOEntity;
+import com.pushtech.crawler.serialization.DAOFactory;
+import com.pushtech.crawler.serialization.DataBaseDAO;
+import com.pushtech.crawler.serialization.ProductDAO;
 
 public class Crawler {
 
@@ -63,7 +63,13 @@ public class Crawler {
                            product.setId(productId);
 
                            // products.add(product);
-                           Persistance.sauverEnBase(product);
+//                           Persistance.sauverEnBase(product);
+                           System.out.println("-------------");
+                           
+                           DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
+                           AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
+                           daoEntity.saveEntity(product);
+                           System.out.println("-------------");
                            id++;
                            // break;
                         } catch (Exception e) {

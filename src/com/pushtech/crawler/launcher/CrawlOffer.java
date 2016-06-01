@@ -67,7 +67,7 @@ public class CrawlOffer {
       product.setDescription(description);
       System.out.println("Description : " + description);
 
-      String brand = null;
+      String brand = "";
       product.setBrand(brand);
       System.out.println("Brand : " + brand);
 
@@ -93,15 +93,15 @@ public class CrawlOffer {
       product.setPrice(price);
       System.out.println("Price : " + price);
 
-      String strKeyword = null;
+      String strKeyWord = null;
       try {
-         strKeyword = getKeywords(productPageDocument);
+    	  strKeyWord = getKeywords(productPageDocument);
       } catch (Exception e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      product.setKeyword(strKeyword);
-      System.out.println("Keyword : " + strKeyword);
+      product.setKeyWord(strKeyWord);
+      System.out.println("KeyWord : " + strKeyWord);
 
       float shippingCost = -1f;
 
@@ -166,12 +166,12 @@ public class CrawlOffer {
       return description;
    }
 
-   // private String getBrand(final Document productPageDocument) throws Exception {
-   // final Element brandElement = findElement(productPageDocument, Selectors.PRODUCT_BRAND); // TODO
-   // String brand = fromElementText(brandElement);
-   // brand = validateField(brand, "Brand");
-   // return brand;
-   // }
+    private String getBrand(final Document productPageDocument) throws Exception {
+//    final Element brandElement = findElement(productPageDocument, Selectors.PRODUCT_BRAND); // TODO
+//    String brand = fromElementText(brandElement);
+//    brand = validateField(brand, "Brand");
+    return "aaaaaaaaaaaa";
+    }
 
    private String getCategory(final Document productPageDocument) throws Exception {
       final Element categoryElement = findElement(productPageDocument, Selectors.PRODUCT_CATEGORY); // TODO
