@@ -67,8 +67,9 @@ public class Crawler {
 
                         DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
                         AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
-                        Product dataBaseProduct = daoEntity.searchEntity(productId);
-                        System.out.println("===>" + dataBaseProduct.toString());
+//                        Product dataBaseProduct = daoEntity.searchEntity(productId);
+                        System.out.println("Status "+daoEntity.updateEntity(product));
+//                        System.out.println("===>" + dataBaseProduct.toString());
 
                         System.out.println("-------------");
                         id++;

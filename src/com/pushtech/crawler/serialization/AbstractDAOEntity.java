@@ -13,5 +13,7 @@ public abstract class AbstractDAOEntity {
    public abstract int saveEntity(Product product);
 
    public abstract int setEntity(Product product);
+   
+   public abstract int updateEntity(Product product);
 
 }
