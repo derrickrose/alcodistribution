@@ -45,7 +45,7 @@ public class DataBaseDAO extends DAOFactory {
    }
 
    private DAOFactory buildDAOInstance() {
-      System.out.println("buid ra ty ato ein");
+      // System.out.println("buid ra ty ato ein");
       Properties properties = new Properties();
       String driver = null;
       String url = null;

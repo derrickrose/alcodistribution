@@ -16,9 +16,9 @@ public class Persistance {
 
       // Information d'acc�s � la base de donn�es
       // String url = "jdbc:mysql://localhost/crawl";
-      String url = "jdbc:mysql://localhost/crawl";
-      String login = "root";
-      String passwd = "";
+      String url = "jdbc:mysql://Devworkit-005/crawl";
+      String login = "workdev";
+      String passwd = "javdev2";
       Connection cn = null;
       Statement st = null;
 
@@ -31,15 +31,15 @@ public class Persistance {
          cn = DriverManager.getConnection(url, login, passwd);
 
          // Etape 3 : Cr�ation d'un statement
-         Date date=new Date();
-         SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+         Date date = new Date();
+         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
          st = cn.createStatement();
          String request = "'" + produit.getId() + "','" + produit.getName() + "',";
          request += "'" + produit.getLink() + "','" + produit.getImage() + "','" + produit.getDescription() + "',";
-         request += "'" + produit.getKeyword() + "'," + produit.getPrice();
+         request += "'" + produit.getKeyWord() + "'," + produit.getPrice();
          request += "," + produit.getShippingCost() + "," + produit.getShippingDelay();
          request += ",'" + produit.getBrand() + "','" + produit.getCategory() + "'";
-         request += "," + produit.getQuantity()+",'"+df.format(date)+"'";
+         request += "," + produit.getQuantity() + ",'" + df.format(date) + "'";
 
          String sql = "INSERT INTO `alcodistribution` VALUES (" + request + ")";
 
@@ -64,10 +64,7 @@ public class Persistance {
       }
    }
 
-
-
    public static boolean lireEnBase(String productId) {
-
 
       String url = "jdbc:mysql://localhost/crawl";
       String login = "root";
@@ -78,25 +75,23 @@ public class Persistance {
 
       try {
 
-
          Class.forName("com.mysql.jdbc.Driver");
 
          cn = DriverManager.getConnection(url, login, passwd);
 
          st = cn.createStatement();
 
-         String sql = "SELECT count(*) as isa FROM `alcodistribution` WHERE productId LIKE '%"+productId+"%'";
+         String sql = "SELECT count(*) as isa FROM `alcodistribution` WHERE productId LIKE '%" + productId + "%'";
 
          rs = st.executeQuery(sql);
-         while(rs.next()){
-            if(rs.getInt("isa")>0){
+         while (rs.next()) {
+            if (rs.getInt("isa") > 0) {
                System.out.println("L'offre existe déjà dans la base");
                cn.close();
                st.close();
                return true;
             }
          }
-
 
       } catch (SQLException e) {
          e.printStackTrace();

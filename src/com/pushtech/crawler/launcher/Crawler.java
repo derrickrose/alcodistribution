@@ -4,7 +4,6 @@ import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
 
 import java.util.ArrayList;
 
-import com.pushtech.crawler.persistance.Persistance;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.jsoup.nodes.Document;
@@ -34,58 +33,58 @@ public class Crawler {
 
          try {
 
-            ArrayList<String> alllisting=getAllListing(url);
-            for(String listing:alllisting){
-            boolean continueCrawl = true;
-            String rayon = listing;
-            while (continueCrawl) {
+            ArrayList<String> alllisting = getAllListing(url);
+            for (String listing : alllisting) {
+               boolean continueCrawl = true;
+               String rayon = listing;
+               while (continueCrawl) {
 
-               page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
+                  page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
 
-               if (PageType.isProductPage(page)) {
-                  Product product = new CrawlOffer().doAction(page);
-                  products.add(product);
-                  continueCrawl = false;
-               } else if (PageType.isListingPage(page)) {
-                  int id = 0;
-                  for (String link : CrawlListing.getProductLinks(page)) {
-                     Product product = new Product();
-                     System.out.println("Link : " + link);
-                     String productId = getIdFromLink(link);
-                     System.out.println("Product Id :" + productId);
-                     // if(Persistance.lireEnBase()){
-                     // continue;
-                     // }
+                  if (PageType.isProductPage(page)) {
+                     Product product = new CrawlOffer().doAction(page);
+                     products.add(product);
+                     continueCrawl = false;
+                  } else if (PageType.isListingPage(page)) {
+                     int indexProduit = 0;
+                     for (String link : CrawlListing.getProductLinks(page)) {
+                        System.out.println("-------------------- Produit n* " + indexProduit + " --------------------");
 
-                     try {
-                        Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
-                        product = new CrawlOffer().doAction(productPage);
-                        product.setLink(link);
-                        product.setId(productId);
+                        Product product = new Product();
+                        System.out.println("Link : " + link);
+                        String productId = getIdFromLink(link);
+                        System.out.println("Product Id :" + productId);
+                        // if(Persistance.lireEnBase()){
+                        // continue;
+                        // }
 
-                        // products.add(product);
-                         Persistance.sauverEnBase(product);
-                    //    System.out.println("-------------");
+                        try {
+                           Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
+                           product = new CrawlOffer().doAction(productPage);
+                           product.setLink(link);
+                           product.setId(productId);
 
-                      //  DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
-                        //AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
-                        // Product dataBaseProduct = daoEntity.searchEntity(productId);
-                        //System.out.println("Status " + daoEntity.updateEntity(product));
-                        // System.out.println("===>" + dataBaseProduct.toString());
+                           // products.add(product);
+                           // Persistance.sauverEnBase(product);
+                           // System.out.println("-------------");
 
-                        //System.out.println("-------------");
-                        id++;
-                        // break;
-                     } catch (Exception e) {
-                        System.out.println("error =>>> IMPOSSIBLE DE SE CONNECTER");
+                           DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
+                           AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
+                           daoEntity.updateEntity(product);
+
+                           // System.out.println("-------------");
+                           indexProduit++;
+                           // break;
+                        } catch (Exception e) {
+                           System.out.println("error =>>> IMPOSSIBLE DE SE CONNECTER");
+                        }
+
                      }
-
-                  }
-                  rayon = getNextPageLink(page.getDoc());
-                  continueCrawl = rayon != null ? true : false;
-               } else continueCrawl = false;
+                     rayon = getNextPageLink(page.getDoc());
+                     continueCrawl = rayon != null ? true : false;
+                  } else continueCrawl = false;
+               }
             }
-             }
          } catch (Exception e) {
 
          }

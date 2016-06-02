@@ -24,7 +24,7 @@ public class CSVService {
       data += product.getName() + separator;
       data += product.getLink() + separator;
       data += product.getDescription() + separator;
-      data += product.getKeyword() + separator;
+      data += product.getKeyWord() + separator;
       data += product.getPrice() + separator;
       data += product.getShippingCost() + separator;
       data += product.getShippingDelay() + separator;
