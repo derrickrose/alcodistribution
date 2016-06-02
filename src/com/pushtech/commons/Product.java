@@ -1,115 +1,134 @@
 package com.pushtech.commons;
 
+import java.util.Date;
+
 public class Product {
 
-   private String id = "" + 0, parentId = "" + 0;
-   private String name = "", link = "", description = "", brand = "", category = "", image = "";
-   private String keyword = "";
+	private String id = null, parentId = null;
+	private String name = null, link = null, description = null, brand = null,
+			category = null, image = null;
+	private String keyWord = null;
+	private Date updated = null;
+	private float price = -1f, shippingCost = -1f;
+	private int shippingDelay = 0, quantity = 0;
 
-   public String getKeyword() {
-      return keyword;
-   }
+	public String getKeyword() {
+		return keyWord;
+	}
 
-   public void setKeyword(String keyword) {
-      this.keyword = keyword;
-   }
+	public void setKeyWord(String keyword) {
+		this.keyWord = keyWord;
+	}
 
-   private float price = -1f, shippingCost = -1f;
-   private int shippingDelay = 0, quantity = 0;
+	public Date getUpdated() {
+		return updated;
+	}
 
-   public String getId() {
-      return id;
-   }
+	public void setUpdated(Date date) {
+		this.updated = date;
+	}
 
-   public String getParentId() {
-      return parentId;
-   }
+	public String getKeyWord() {
+		return keyWord;
+	}
 
-   public String getName() {
-      return name;
-   }
+	public String getId() {
+		return id;
+	}
 
-   public String getLink() {
-      return link;
-   }
+	public String getParentId() {
+		return parentId;
+	}
 
-   public String getDescription() {
-      return description;
-   }
+	public String getName() {
+		return name;
+	}
 
-   public String getBrand() {
-      return brand;
-   }
+	public String getLink() {
+		return link;
+	}
 
-   public String getCategory() {
-      return category;
-   }
+	public String getDescription() {
+		return description;
+	}
 
-   public String getImage() {
-      return image;
-   }
+	public String getBrand() {
+		return brand;
+	}
 
-   public float getPrice() {
-      return price;
-   }
+	public String getCategory() {
+		return category;
+	}
 
-   public float getShippingCost() {
-      return shippingCost;
-   }
+	public String getImage() {
+		return image;
+	}
 
-   public int getShippingDelay() {
-      return shippingDelay;
-   }
+	public float getPrice() {
+		return price;
+	}
 
-   public int getQuantity() {
-      return quantity;
-   }
+	public float getShippingCost() {
+		return shippingCost;
+	}
 
-   public void setId(String id) {
-      this.id = id;
-   }
+	public int getShippingDelay() {
+		return shippingDelay;
+	}
 
-   public void setParentId(String parentId) {
-      this.parentId = parentId;
-   }
+	public int getQuantity() {
+		return quantity;
+	}
 
-   public void setName(String name) {
-      this.name = name;
-   }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-   public void setLink(String link) {
-      this.link = link;
-   }
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 
-   public void setDescription(String description) {
-      this.description = description;
-   }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-   public void setBrand(String brand) {
-      this.brand = brand;
-   }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-   public void setCategory(String category) {
-      this.category = category;
-   }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-   public void setImage(String image) {
-      this.image = image;
-   }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-   public void setPrice(float price) {
-      this.price = price;
-   }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-   public void setShippingCost(float shippingCost) {
-      this.shippingCost = shippingCost;
-   }
+	public void setImage(String image) {
+		this.image = image;
+	}
 
-   public void setShippingDelay(int shippingDelay) {
-      this.shippingDelay = shippingDelay;
-   }
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
-   public void setQuantity(int quantity) {
-      this.quantity = quantity;
-   }
+	public void setShippingCost(float shippingCost) {
+		this.shippingCost = shippingCost;
+	}
+
+	public void setShippingDelay(int shippingDelay) {
+		this.shippingDelay = shippingDelay;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String toString() {
+		return "Product : " + id + " - " + name;
+	}
 }

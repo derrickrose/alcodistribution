@@ -1,24 +1,23 @@
 package com.pushtech.crawler.launcher;
 
 import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
-import static com.pushtech.crawler.launcher.CrawlListing.getProductLinks;
 
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
 import com.pushtech.crawler.connection.ConnectionHandler;
 import com.pushtech.crawler.connection.EngineContext;
 import com.pushtech.crawler.parsing.ParserFactory;
-import com.pushtech.crawler.parsing.ParsingTemplate;
-import com.pushtech.crawler.persistance.Persistance;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import javax.xml.bind.Element;
+import com.pushtech.crawler.serialization.AbstractDAOEntity;
+import com.pushtech.crawler.serialization.DAOFactory;
+import com.pushtech.crawler.serialization.DataBaseDAO;
+import com.pushtech.crawler.serialization.ProductDAO;
 
 public class Crawler {
 
@@ -33,49 +32,59 @@ public class Crawler {
          String url = "http://www.alcodistributions.fr/catalogo/categorias/030211//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Bandouli%C3%A8res";
 
          try {
-//           ArrayList<String> alllisting=getAllListing(url);
-//            for(String listing:alllisting){
-               boolean continueCrawl = true;
-               String rayon=url;
-               while (continueCrawl) {
-            	 
-                  page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
-                  System.out.print("ici");
-                  if (PageType.isProductPage(page)) {
-                     Product product = new CrawlOffer().doAction(page);
-                     products.add(product);
-                     continueCrawl = false;
-                  } else if (PageType.isListingPage(page)) {
-                     int id = 0;
-                     for (String link : CrawlListing.getProductLinks(page)) {
-                        Product product=new Product();
-                        System.out.println("Link : " + link);
-                        String productId=getIdFromLink(link);
-                        System.out.println("Product Id :" + productId);
-                        if(Persistance.lireEnBase(productId)){
-                          continue;
-                       }
 
-                        try {
-                           Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
-                           product = new CrawlOffer().doAction(productPage);
-                           product.setLink(link);
-                           product.setId(productId);
+            // ArrayList<String> alllisting=getAllListing(url);
+            // for(String listing:alllisting){
+            boolean continueCrawl = true;
+            String rayon = url;
+            while (continueCrawl) {
 
-                           // products.add(product);
-                           Persistance.sauverEnBase(product);
-                           id++;
-                           // break;
-                        } catch (Exception e) {
-                           System.out.println("error =>>> IMPOSSIBLE DE SE CONNECTER");
-                        }
+               page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
+               System.out.print("ici");
+               if (PageType.isProductPage(page)) {
+                  Product product = new CrawlOffer().doAction(page);
+                  products.add(product);
+                  continueCrawl = false;
+               } else if (PageType.isListingPage(page)) {
+                  int id = 0;
+                  for (String link : CrawlListing.getProductLinks(page)) {
+                     Product product = new Product();
+                     System.out.println("Link : " + link);
+                     String productId = getIdFromLink(link);
+                     System.out.println("Product Id :" + productId);
+                     // if(Persistance.lireEnBase()){
+                     // continue;
+                     // }
 
+                     try {
+                        Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
+                        product = new CrawlOffer().doAction(productPage);
+                        product.setLink(link);
+                        product.setId(productId);
+
+                        // products.add(product);
+                        // Persistance.sauverEnBase(product);
+                        System.out.println("-------------");
+
+                        DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
+                        AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
+                        // Product dataBaseProduct = daoEntity.searchEntity(productId);
+                        System.out.println("Status " + daoEntity.updateEntity(product));
+                        // System.out.println("===>" + dataBaseProduct.toString());
+
+                        System.out.println("-------------");
+                        id++;
+                        // break;
+                     } catch (Exception e) {
+                        System.out.println("error =>>> IMPOSSIBLE DE SE CONNECTER");
                      }
-                     rayon = getNextPageLink(page.getDoc());
-                     continueCrawl = rayon != null ? true : false;
-                  } else continueCrawl = false;
-               }
-//            }
+
+                  }
+                  rayon = getNextPageLink(page.getDoc());
+                  continueCrawl = rayon != null ? true : false;
+               } else continueCrawl = false;
+            }
+            // }
          } catch (Exception e) {
 
          }
@@ -88,19 +97,21 @@ public class Crawler {
       } finally {
       }
    }
-   private static ArrayList<String> getAllListing(String link){
-      ArrayList<String> listes=new ArrayList<String>();
+
+   private static ArrayList<String> getAllListing(String link) {
+      ArrayList<String> listes = new ArrayList<String>();
       Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
-      Document doc=productPage.getDoc();
-      Elements elts=doc.select(Selectors.ALL_LISTING);
-      if(elts.size()>0){
-         for(org.jsoup.nodes.Element data:elts){
-            System.out.println("Url :"+data.attr("href"));
+      Document doc = productPage.getDoc();
+      Elements elts = doc.select(Selectors.ALL_LISTING);
+      if (elts.size() > 0) {
+         for (org.jsoup.nodes.Element data : elts) {
+            System.out.println("Url :" + data.attr("href"));
             listes.add(cleanPath(data.attr("href")));
          }
       }
-   return listes;
+      return listes;
    }
+
    private static String cleanPath(String path) {
       if (path == null) return null;
       path = path.replace("" + (char) 201, "%C3%89").replace(" ", "%20").replace("" + (char) 232, "%C3%A8");
