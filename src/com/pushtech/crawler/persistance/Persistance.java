@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.pushtech.commons.Product;
 
@@ -29,13 +31,15 @@ public class Persistance {
          cn = DriverManager.getConnection(url, login, passwd);
 
          // Etape 3 : Cr�ation d'un statement
+         Date date=new Date();
+         SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
          st = cn.createStatement();
          String request = "'" + produit.getId() + "','" + produit.getName() + "',";
          request += "'" + produit.getLink() + "','" + produit.getImage() + "','" + produit.getDescription() + "',";
          request += "'" + produit.getKeyword() + "'," + produit.getPrice();
          request += "," + produit.getShippingCost() + "," + produit.getShippingDelay();
          request += ",'" + produit.getBrand() + "','" + produit.getCategory() + "'";
-         request += "," + produit.getQuantity();
+         request += "," + produit.getQuantity()+",'"+df.format(date)+"'";
 
          String sql = "INSERT INTO `alcodistribution` VALUES (" + request + ")";
 

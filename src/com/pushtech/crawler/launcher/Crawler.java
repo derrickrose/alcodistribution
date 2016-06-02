@@ -4,6 +4,7 @@ import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
 
 import java.util.ArrayList;
 
+import com.pushtech.crawler.persistance.Persistance;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.jsoup.nodes.Document;
@@ -29,18 +30,18 @@ public class Crawler {
 
          Page page = null;
 
-         String url = "http://www.alcodistributions.fr/catalogo/categorias/030211//CADEAU/COMPL%C3%89MENTS%20ET%20TEXTILE/Bandouli%C3%A8res";
+         String url = "http://www.alcodistributions.fr/";
 
          try {
 
-            // ArrayList<String> alllisting=getAllListing(url);
-            // for(String listing:alllisting){
+            ArrayList<String> alllisting=getAllListing(url);
+            for(String listing:alllisting){
             boolean continueCrawl = true;
-            String rayon = url;
+            String rayon = listing;
             while (continueCrawl) {
 
                page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
-               System.out.print("ici");
+
                if (PageType.isProductPage(page)) {
                   Product product = new CrawlOffer().doAction(page);
                   products.add(product);
@@ -63,16 +64,16 @@ public class Crawler {
                         product.setId(productId);
 
                         // products.add(product);
-                        // Persistance.sauverEnBase(product);
-                        System.out.println("-------------");
+                         Persistance.sauverEnBase(product);
+                    //    System.out.println("-------------");
 
-                        DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
-                        AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
+                      //  DAOFactory daoFactory = new DataBaseDAO().getFactoryInstance();
+                        //AbstractDAOEntity daoEntity = new ProductDAO(daoFactory);
                         // Product dataBaseProduct = daoEntity.searchEntity(productId);
-                        System.out.println("Status " + daoEntity.updateEntity(product));
+                        //System.out.println("Status " + daoEntity.updateEntity(product));
                         // System.out.println("===>" + dataBaseProduct.toString());
 
-                        System.out.println("-------------");
+                        //System.out.println("-------------");
                         id++;
                         // break;
                      } catch (Exception e) {
@@ -84,7 +85,7 @@ public class Crawler {
                   continueCrawl = rayon != null ? true : false;
                } else continueCrawl = false;
             }
-            // }
+             }
          } catch (Exception e) {
 
          }
