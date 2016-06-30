@@ -25,7 +25,7 @@ public class Launcher extends JFrame {
         this.setLayout(new GridLayout(6, 2, 10, 10));
 
         // On ajoute le bouton au content pane de la JFrame
-        JTextField urlField = new JTextField(10);
+        final JTextField urlField = new JTextField(10);
         this.getContentPane().add(new JLabel("Url to crawl"));
 
         this.getContentPane().add(urlField);
@@ -59,24 +59,24 @@ public class Launcher extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        new Launcher("Alco Distribution");
-    }
+//    public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//        } catch (ClassNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (InstantiationException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (UnsupportedLookAndFeelException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        new Launcher("Alco Distribution");
+//    }
 
 }
 
