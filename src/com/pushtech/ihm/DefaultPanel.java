@@ -13,10 +13,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.pushtech.crawler.launcher.Crawler;
+
 public class DefaultPanel extends JPanel {
 
+	private Thread crawlThread;
+	
 	private CustomJButton launch;
 	private CustomJButton cancel;
+	private CustomJTextField urlField;
+	private CustomJTextField dataBaseLinkField;
+	private CustomJTextField dataBaseUserField;
+	private CustomJTextField dataBaseUserPasswordField;
 	private static final Dimension BUTTON_SIZE = new Dimension(200, 25);
 	private static final Dimension TEXT_FIELD_SIZE = new Dimension(400, 25);
 
@@ -48,19 +56,16 @@ public class DefaultPanel extends JPanel {
 		JPanel centerContainer = new JPanel();
 		centerContainer.setLayout(new GridLayout(4, 1));
 
-		CustomJTextField urlField = new CustomJTextField("url", TEXT_FIELD_SIZE);
+		urlField = new CustomJTextField("", TEXT_FIELD_SIZE);
 		centerContainer.add(urlField);
-		
-		CustomJTextField dataBaseLinkField = new CustomJTextField("link",
-				TEXT_FIELD_SIZE);
+
+		dataBaseLinkField = new CustomJTextField("", TEXT_FIELD_SIZE);
 		centerContainer.add(dataBaseLinkField);
 
-		CustomJTextField dataBaseUserField = new CustomJTextField("user",
-				TEXT_FIELD_SIZE);
+		dataBaseUserField = new CustomJTextField("", TEXT_FIELD_SIZE);
 		centerContainer.add(dataBaseUserField);
 
-		CustomJTextField dataBaseUserPasswordField = new CustomJTextField(
-				"pass", TEXT_FIELD_SIZE);
+		dataBaseUserPasswordField = new CustomJTextField("", TEXT_FIELD_SIZE);
 		centerContainer.add(dataBaseUserPasswordField);
 
 		this.add(centerContainer, BorderLayout.CENTER);
@@ -89,8 +94,10 @@ public class DefaultPanel extends JPanel {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+
 						launch.getComponent().setEnabled(true);
 						cancel.getComponent().setEnabled(false);
+						stopThread(crawlThread);
 					}
 				});
 	}
@@ -103,9 +110,42 @@ public class DefaultPanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 
+						String linkToCrawl = ((JTextField) urlField
+								.getComponent()).getText();
+						String dataBaseLink = ((JTextField) dataBaseLinkField
+								.getComponent()).getText();
+						String dataBaseUser = ((JTextField) dataBaseUserField
+								.getComponent()).getText();
+						String userPassWord = ((JTextField) dataBaseUserPasswordField
+								.getComponent()).getText();
+
+						// ceci n'est pas tres bien, envisager le changer
+						// ulterieurement
+						FormHandler.validateForm(linkToCrawl, dataBaseLink,
+								dataBaseUser, userPassWord);
+						System.out.println("=====> "
+								+ FormHandler.getForm().getLinkToCrawl());
+						
+						 crawlThread = new Thread(new Crawler());
+						 startThread(crawlThread);
+
 						launch.getComponent().setEnabled(false);
 						cancel.getComponent().setEnabled(true);
 					}
 				});
+	}
+	
+	private void startThread(Thread t){
+		t.start();
+		System.out.println("Thread started "+t.getName());
+	}
+	
+	private void stopThread(Thread t){
+		t.stop();
+		System.out.println("Thread stoped "+t.getName());
+	}
+	
+	private void pauseThread(Thread t){
+		System.out.println("Thread waiting "+t.getName());
 	}
 }

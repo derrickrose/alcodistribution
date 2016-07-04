@@ -25,7 +25,8 @@ public class Selectors {
    public static final String LISTING_PAGE_PRODUCT_LINK = "td:has(input[name=codigo]):has(table) a:not(:has(img))";
    public static final String NEXT_PAGE_LINK = "a[name=siguiente_pagina]";
  //public static final String ALL_LISTING="div.divino>ul>li>div>ul>ul>li>a";//OTHERS
-  public static final String ALL_LISTING="div#capa120319>ul a";//ALL//capa120843
+//  public static final String ALL_LISTING="div#capa120843>ul a";//ALL//capa120843 
+  public static final String ALL_LISTING="#menu div[id*=capa] > ul a";
  // public static final String ALL_LISTING="div#capa120843>ul a";//ALL//capa120843
-
+  
 }

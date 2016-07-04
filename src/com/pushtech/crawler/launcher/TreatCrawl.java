@@ -24,19 +24,19 @@ import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
 public class TreatCrawl {
     public TreatCrawl(String url){
         try {
-
+        	
             ArrayList<Product> products = new ArrayList<Product>();
 
             Page page = null;
 
             try {
-
+            	
                 ArrayList<String> alllisting = getAllListing(url);
                 for (String listing : alllisting) {
                     boolean continueCrawl = true;
                     String rayon = listing;
                     while (continueCrawl) {
-
+                    	
                         page = getPageFromUrl(rayon, EngineContext.MethodType.GET_METHOD);
 
                         if (PageType.isProductPage(page)) {
@@ -99,6 +99,8 @@ public class TreatCrawl {
         ArrayList<String> listes = new ArrayList<String>();
         Page productPage = getPageFromUrl(link, EngineContext.MethodType.GET_METHOD);
         Document doc = productPage.getDoc();
+        System.out.println("eto");
+        
         Elements elts = doc.select(Selectors.ALL_LISTING);
         if (elts.size() > 0) {
             for (org.jsoup.nodes.Element data : elts) {

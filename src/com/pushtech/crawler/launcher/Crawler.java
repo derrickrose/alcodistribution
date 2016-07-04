@@ -18,12 +18,17 @@ import com.pushtech.crawler.serialization.AbstractDAOEntity;
 import com.pushtech.crawler.serialization.DAOFactory;
 import com.pushtech.crawler.serialization.DataBaseDAO;
 import com.pushtech.crawler.serialization.ProductDAO;
+import com.pushtech.ihm.FormHandler;
 
-public class Crawler {
+public class Crawler extends Thread{
 
-   public static void main(String[] args) {
-
-   new TreatCrawl("http://www.alcodistributions.fr/");
-   }
-
+	@Override
+	public void run() {
+		String linkToCrawl = FormHandler.getForm().getLinkToCrawl();
+		if (StringUtils.isBlank(linkToCrawl)) {
+			linkToCrawl = "http://www.alcodistributions.fr/";
+		}
+		new TreatCrawl(linkToCrawl);
+	}
+	
 }
