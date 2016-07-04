@@ -97,7 +97,13 @@ public class DefaultPanel extends JPanel {
 
 						launch.getComponent().setEnabled(true);
 						cancel.getComponent().setEnabled(false);
+						
 						stopThread(crawlThread);
+						
+						urlField.getComponent().setEnabled(true);
+						dataBaseLinkField.getComponent().setEnabled(true);
+						dataBaseUserField.getComponent().setEnabled(true);
+						dataBaseUserPasswordField.getComponent().setEnabled(true);
 					}
 				});
 	}
@@ -127,10 +133,13 @@ public class DefaultPanel extends JPanel {
 								+ FormHandler.getForm().getLinkToCrawl());
 						
 						 crawlThread = new Thread(new Crawler());
-						 startThread(crawlThread);
-
 						launch.getComponent().setEnabled(false);
 						cancel.getComponent().setEnabled(true);
+						urlField.getComponent().setEnabled(false);
+						dataBaseLinkField.getComponent().setEnabled(false);
+						dataBaseUserField.getComponent().setEnabled(false);
+						dataBaseUserPasswordField.getComponent().setEnabled(false);
+						startThread(crawlThread);
 					}
 				});
 	}
