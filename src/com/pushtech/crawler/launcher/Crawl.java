@@ -2,10 +2,10 @@ package com.pushtech.crawler.launcher;
 
 import static com.pushtech.crawler.launcher.CrawlListing.getNextPageLink;
 
-import java.awt.TrayIcon.MessageType;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import org.apache.http.HttpResponse;
 
@@ -24,29 +24,43 @@ import com.pushtech.crawler.serialization.ProductDAO;
  */
 public class Crawl {
    public Crawl(String entryPointUrl) {
+      // try {
+      Page page = null;
+      String urlToConnect = entryPointUrl;
       try {
-         Page page = null;
-         String urlToConnect = entryPointUrl;
-         try {
-            page = getPageFromUrl(urlToConnect, EngineContext.MethodType.GET_METHOD);
-            if (PageType.isProductPage(page)) {
-               offerCrawling(page, urlToConnect);
-            } else if (PageType.isListingPage(page)) {
-               listingCrawling(page);
-            } else if (entryPointUrl.equals("http://www.alcodistributions.fr") || entryPointUrl.endsWith("http://www.alcodistributions.fr/")) {
-               homeCrawling(page);// home page � faire
-            }
-         } catch (Exception e) {
+         page = getPageFromUrl(urlToConnect, EngineContext.MethodType.GET_METHOD);
+         if (PageType.isProductPage(page)) {
+            offerCrawling(page, urlToConnect);
+         } else if (PageType.isListingPage(page)) {
+            listingCrawling(page);
+         } else if (entryPointUrl.equals("http://www.alcodistributions.fr") || entryPointUrl.endsWith("http://www.alcodistributions.fr/")) {
+            homeCrawling(page);// home page � faire
          }
-
-         // CSVService csvService = new CSVService();
-         // csvService.buildCSV(products, ";");
       } catch (Exception e) {
-         e.printStackTrace();
-      } finally {
+         SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               JOptionPane jop = new JOptionPane();
+               jop.showMessageDialog(null, "Crawl failed", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+         });
       }
-      // TODO nice to be replaced
-      new JOptionPane("Crawl done", 50, 50, null, null, MessageType.INFO).show();
+      // new JOptionPane("Crawl ended");
+      // CSVService csvService = new CSVService();
+      // csvService.buildCSV(products, ";");
+      // } catch (Exception e) {
+      // e.printStackTrace();
+      // } finally {
+      // }
+      // TODO nice to be replaced by observer
+      SwingUtilities.invokeLater(new Runnable() {
+         @Override
+         public void run() {
+            JOptionPane jop = new JOptionPane();
+            jop.showMessageDialog(null, "Crawl ended", "Information", JOptionPane.INFORMATION_MESSAGE);
+         }
+      });
+
    }
 
    public static Page getPageFromUrl(final String url, EngineContext.MethodType methodeType) {
@@ -54,6 +68,7 @@ public class Crawl {
       HttpResponse response = null;
       response = ConnectionHandler.getResponse(url, null, null, methodeType);
       page = (Page) ParserFactory.getAppropriateParsingTemplate(response).parse(url, response, null);
+
       return page;
    }
 
