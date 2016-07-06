@@ -177,15 +177,16 @@ public class CrawlOffer {
 
    private String getCategory(final Document productPageDocument) throws Exception {
       final Element categoryElement = findElement(productPageDocument, Selectors.PRODUCT_CATEGORY); // TODO
-      String category = fromElementText(categoryElement);
-      category = validateField(category, "Category");
-      return cleanCategory(category);
+//      String category = fromElementText(categoryElement);
+      String category = fromOwnElementText(categoryElement);
+      category = cleanCategory(validateField(category, "Category"));
+      return category;
    }
    
    private String cleanCategory(String category){
 	   if(category!=null && category.contains(">")){
 		   category = category.substring(category.lastIndexOf(">")+1).trim();
-		   category = category.substring(0,category.indexOf(" ")).trim();
+//		   category = category.substring(0,category.indexOf(" ")).trim();
 		   return category;
 	   }
 	   return null;
@@ -354,6 +355,16 @@ public class CrawlOffer {
       }
       return null;
    }
+   
+   private String fromOwnElementText(final Element element) {
+	      if (element != null) {
+	         String text = element.ownText();
+	         text = StringEscapeUtils.unescapeHtml4(text);
+	         // text = text.replace(CARACTERE_ESPACE, " ");
+	         return StringUtils.trim(text);
+	      }
+	      return null;
+	   }
 
    private String validateField(final String value, final String name) throws Exception {
       if (StringUtils.isBlank(value)) {
