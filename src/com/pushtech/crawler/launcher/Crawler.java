@@ -28,7 +28,10 @@ public class Crawler extends Thread{
 		if (StringUtils.isBlank(linkToCrawl)) {
 			linkToCrawl = "http://www.alcodistributions.fr/";
 		}
-		new TreatCrawl(linkToCrawl);
+//		new TreatCrawl(linkToCrawl);
+		
+		
+		new Crawl(linkToCrawl);
 	}
 	
 }

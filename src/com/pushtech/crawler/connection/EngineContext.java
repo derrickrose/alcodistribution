@@ -8,9 +8,11 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import static com.pushtech.commons.UriHandler.cleanPath;
 
 public class EngineContext {
 
+	
     private String url = null;
     private HashMap<String, String> parameters = null;
     private HashMap<String, String> headers = null;
@@ -28,7 +30,7 @@ public class EngineContext {
     }
 
     public static EngineContext getEngineContext(String url, HashMap<String, String> parameters, HashMap<String, String> headers, EngineConnection engineConnection) {
-	return new EngineContext(url, parameters, headers, engineConnection);
+	return new EngineContext(cleanPath(url), parameters, headers, engineConnection);
     }
 
     public HttpRequestBase getFormedRequest(EngineContext engineContext, MethodType method) {

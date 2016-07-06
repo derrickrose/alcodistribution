@@ -66,11 +66,11 @@ public class DataBaseDAO extends DAOFactory {
 		try {
 			properties.load(mysqlPropertiesFile);
 			driver = properties.getProperty(DRIVER_PROPERTY_FIELD);
-			url = StringUtils.isBlank(url) ? url : properties
+			url = StringUtils.isNotBlank(url) ? url : properties
 					.getProperty(URL_PROPERTY_FIELD);
-			login = StringUtils.isBlank(login) ? login : properties
+			login = StringUtils.isNotBlank(login) ? login : properties
 					.getProperty(LOGIN_PROPERTY_FIELD);
-			password = StringUtils.isBlank(password) ? password : properties
+			password = StringUtils.isNotBlank(password) ? password : properties
 					.getProperty(PASSWORD_PROPERTY_FIELD);
 		} catch (Exception e) {
 			e.printStackTrace();

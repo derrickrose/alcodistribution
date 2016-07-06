@@ -14,13 +14,13 @@ public class Selectors {
    public static final String PRODUCT_DESCRIPTION = "meta[name=Description]";
    public static final String PRODUCT_KEYWORDS = "meta[name=keywords]";
    public static final String PRODUCT_IDENTIFIER = "span.mini";
-
-   public static final String PRODUCT_CATEGORY = ".crumb0>a";
+   public static final String PRODUCT_CATEGORY = "div#contenido";
    public static final String PRODUCT_IMAGE = "img[name=foto]";
    public static final String PRODUCT_PRICE = "input[name^=precio]";
 
    // listing page
    public static final String LISTING_PAGE_IDENTIFIER = "td:has(input[name=codigo]):has(table)";
+   public static final String HOME_PAGE_IDENTIFIER = "#coin-slider-portada_slide";
    public static final String LISTING_PAGE_PRODUCTS = "td:has(input[name=codigo]):has(table)";
    public static final String LISTING_PAGE_PRODUCT_LINK = "td:has(input[name=codigo]):has(table) a:not(:has(img))";
    public static final String NEXT_PAGE_LINK = "a[name=siguiente_pagina]";
