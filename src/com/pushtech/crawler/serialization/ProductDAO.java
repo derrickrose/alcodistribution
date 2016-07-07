@@ -47,7 +47,10 @@ public class ProductDAO extends AbstractDAOEntity {
          }
       } catch (Exception e) {
          e.printStackTrace();
+      } finally {
+         DAOUtilities.closeAll(resultSet, searchStatement, connection);
       }
+
       return product;
    }
 
@@ -66,6 +69,11 @@ public class ProductDAO extends AbstractDAOEntity {
       } catch (Exception e) {
          e.printStackTrace();
       }
+
+      finally {
+         DAOUtilities.closeAll(null, preparedStatement, connection);
+      }
+
       return status;
    }
 
@@ -163,6 +171,8 @@ public class ProductDAO extends AbstractDAOEntity {
          }
       } catch (Exception e) {
          e.printStackTrace();
+      } finally {
+         DAOUtilities.closeAll(null, updateStatement, connection);
       }
       return status;
    }

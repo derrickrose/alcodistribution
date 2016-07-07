@@ -27,7 +27,8 @@ public class Selectors {
    // public static final String ALL_LISTING="div.divino>ul>li>div>ul>ul>li>a";//OTHERS
    // public static final String ALL_LISTING="div#capa120843>ul a";//ALL//capa120843
    // public static final String ALL_LISTING="#menu div[id*=capa] > ul a";
-   public static final String ALL_LISTING = "div.divino a[href*=categorias]";
-   // public static final String ALL_LISTING="div#capa120843>ul a";//ALL//capa120843
+   // public static final String ALL_LISTING = "li:has(h2:contains(LICENCES)) + div a:has(h3:matchesOwn((S|T|U|V|W|X|Y|Z)([a-zA-Z]+\\s)+))";
+   // public static final String ALL_LISTING = "li:has(h2:contains(JOUETS)) + div a:has(h3:contains(PERSONNAGE))+ div li a";
+   public static final String ALL_LISTING = "div.divino a[href*=categorias]"; //
 
 }

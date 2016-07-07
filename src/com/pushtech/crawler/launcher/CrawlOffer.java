@@ -73,11 +73,11 @@ public class CrawlOffer {
 
       String category = null;
       try {
-    	  category = getCategory(productPageDocument);
-    	  product.setCategory(category);
-       } catch (Exception e) {
-          e.printStackTrace();
-       }
+         category = getCategory(productPageDocument);
+         product.setCategory(category);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
       System.out.println("Category : " + category);
 
       String image = null;
@@ -100,7 +100,7 @@ public class CrawlOffer {
 
       String strKeyWord = null;
       try {
-    	  strKeyWord = getKeywords(productPageDocument);
+         strKeyWord = getKeywords(productPageDocument);
       } catch (Exception e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -119,7 +119,7 @@ public class CrawlOffer {
       int quantity = 0;
       product.setQuantity(quantity);
       System.out.println("Quantity : " + quantity);
-      
+
       return product;
    }
 
@@ -168,28 +168,27 @@ public class CrawlOffer {
       return description;
    }
 
-    private String getBrand(final Document productPageDocument) throws Exception {
-//    final Element brandElement = findElement(productPageDocument, Selectors.PRODUCT_BRAND); // TODO
-//    String brand = fromElementText(brandElement);
-//    brand = validateField(brand, "Brand");
-    return "aaaaaaaaaaaa";
-    }
+   private String getBrand(final Document productPageDocument) throws Exception {
+      // final Element brandElement = findElement(productPageDocument, Selectors.PRODUCT_BRAND); // TODO
+      // String brand = fromElementText(brandElement);
+      // brand = validateField(brand, "Brand");
+      return "aaaaaaaaaaaa";
+   }
 
    private String getCategory(final Document productPageDocument) throws Exception {
       final Element categoryElement = findElement(productPageDocument, Selectors.PRODUCT_CATEGORY); // TODO
-//      String category = fromElementText(categoryElement);
+      // String category = fromElementText(categoryElement);
       String category = fromOwnElementText(categoryElement);
       category = cleanCategory(validateField(category, "Category"));
       return category;
    }
-   
-   private String cleanCategory(String category){
-	   if(category!=null && category.contains(">")){
-		   category = category.substring(category.lastIndexOf(">")+1).trim();
-//		   category = category.substring(0,category.indexOf(" ")).trim();
-		   return category;
-	   }
-	   return null;
+
+   private String cleanCategory(String category) {
+      if (category != null && category.contains(">")) {
+         category = category.substring(category.lastIndexOf(">") + 1).trim();
+         // category = category.substring(0,category.indexOf(" ")).trim();
+         return category;
+      } else return category != null ? category.trim() : null;
    }
 
    private String getImage(final Document productPageDocument) throws Exception {
@@ -355,16 +354,16 @@ public class CrawlOffer {
       }
       return null;
    }
-   
+
    private String fromOwnElementText(final Element element) {
-	      if (element != null) {
-	         String text = element.ownText();
-	         text = StringEscapeUtils.unescapeHtml4(text);
-	         // text = text.replace(CARACTERE_ESPACE, " ");
-	         return StringUtils.trim(text);
-	      }
-	      return null;
-	   }
+      if (element != null) {
+         String text = element.ownText();
+         text = StringEscapeUtils.unescapeHtml4(text);
+         // text = text.replace(CARACTERE_ESPACE, " ");
+         return StringUtils.trim(text);
+      }
+      return null;
+   }
 
    private String validateField(final String value, final String name) throws Exception {
       if (StringUtils.isBlank(value)) {
