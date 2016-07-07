@@ -1,4 +1,4 @@
-package com.pushtech.ihm;
+package com.pushtech.crawler.ihm;
 
 import org.apache.commons.lang3.StringUtils;
 

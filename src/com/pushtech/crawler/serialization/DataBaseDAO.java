@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.pushtech.ihm.FormHandler;
+import com.pushtech.crawler.ihm.FormHandler;
 
 public class DataBaseDAO extends DAOFactory {
 

@@ -1,4 +1,4 @@
-package com.pushtech.ihm;
+package com.pushtech.crawler.ihm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

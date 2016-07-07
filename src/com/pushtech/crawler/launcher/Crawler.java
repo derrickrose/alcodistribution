@@ -13,12 +13,12 @@ import com.pushtech.commons.Product;
 import com.pushtech.crawler.beans.Page;
 import com.pushtech.crawler.connection.ConnectionHandler;
 import com.pushtech.crawler.connection.EngineContext;
+import com.pushtech.crawler.ihm.FormHandler;
 import com.pushtech.crawler.parsing.ParserFactory;
 import com.pushtech.crawler.serialization.AbstractDAOEntity;
 import com.pushtech.crawler.serialization.DAOFactory;
 import com.pushtech.crawler.serialization.DataBaseDAO;
 import com.pushtech.crawler.serialization.ProductDAO;
-import com.pushtech.ihm.FormHandler;
 
 public class Crawler extends Thread{
 
