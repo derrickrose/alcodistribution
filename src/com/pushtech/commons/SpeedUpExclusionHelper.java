@@ -9,9 +9,18 @@ public class SpeedUpExclusionHelper {
    public SpeedUpExclusionHelper() {
       // TODO Auto-generated constructor stub
       initList();
+      initInclude();
    }
 
    private ArrayList<String> include = new ArrayList<String>();
+
+   private void initInclude() {
+
+      // include.add("OUTLET");
+      // include.add("JOUETS");
+      // include.add("LICENCES");
+      include.add("PAPETERIE");
+   }
 
    // private void initList() {
    // exclude.add("CADEAU");

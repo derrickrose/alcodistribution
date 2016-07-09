@@ -43,7 +43,6 @@ public class CrawlHome {
                   }
                }
             }
-
             if (sph.getExclude().size() > 0) {
                for (String str : sph.getExclude()) {
                   if (url.contains(str)) {
@@ -52,6 +51,8 @@ public class CrawlHome {
                   }
                }
             }
+
+            // System.err.println("" + sph.getInclude().size() + " " + inClude);
 
             if ((sph.getInclude().size() > 0 && inClude == false) || toExclude == true) {
                System.err.println("toexclude : " + url);
