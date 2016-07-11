@@ -16,10 +16,9 @@ public class SpeedUpExclusionHelper {
 
    private void initInclude() {
 
-      // include.add("OUTLET");
-      // include.add("JOUETS");
-      // include.add("LICENCES");
-      include.add("PAPETERIE");
+      // include.add("PROMOTION");
+      // include.add("SUPER");
+      // include.add("UEFA");
    }
 
    // private void initList() {
