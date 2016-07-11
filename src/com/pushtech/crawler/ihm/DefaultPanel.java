@@ -1,18 +1,13 @@
 package com.pushtech.crawler.ihm;
-
 import java.awt.BorderLayout;
-import java.awt.Color;
+import static com.pushtech.crawler.logging.LoggingHelper.*;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
-
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import com.pushtech.crawler.launcher.Crawler;
 
 public class DefaultPanel extends JPanel {
@@ -28,6 +23,8 @@ public class DefaultPanel extends JPanel {
 	private static final Dimension BUTTON_SIZE = new Dimension(200, 25);
 	private static final Dimension TEXT_FIELD_SIZE = new Dimension(400, 25);
 
+//	private static final Logger logger = Logger.getLogger(DefaultPanel.class);
+	
 	public DefaultPanel() {
 		super();
 
@@ -146,12 +143,14 @@ public class DefaultPanel extends JPanel {
 	
 	private void startThread(Thread t){
 		t.start();
-		System.out.println("Thread started "+t.getName());
+//		System.out.println("Thread started "+t.getName());
+		logger.error("Thread started "+t.getName());
 	}
 	
 	private void stopThread(Thread t){
 		t.stop();
-		System.out.println("Thread stoped "+t.getName());
+//		System.out.println("Thread stoped "+t.getName());
+		logger.error("Thread stoped "+t.getName());
 	}
 	
 	private void pauseThread(Thread t){

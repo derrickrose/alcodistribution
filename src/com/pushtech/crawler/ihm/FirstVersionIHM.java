@@ -8,8 +8,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.log4j.Logger;
+
 public class FirstVersionIHM extends JFrame {
 
+	private static Logger logger = Logger.getLogger(FirstVersionIHM.class);
+	
 	public FirstVersionIHM(String strTitle) {
 		this.setTitle(strTitle);
 		this.setSize(700, 220);
@@ -33,16 +37,16 @@ public class FirstVersionIHM extends JFrame {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 
 		SwingUtilities.invokeLater(new Runnable() {
