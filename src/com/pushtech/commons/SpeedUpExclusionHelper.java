@@ -9,6 +9,17 @@ public class SpeedUpExclusionHelper {
    public SpeedUpExclusionHelper() {
       // TODO Auto-generated constructor stub
       initList();
+      initInclude();
+   }
+
+   private ArrayList<String> include = new ArrayList<String>();
+
+   private void initInclude() {
+
+      // include.add("OUTLET");
+      // include.add("JOUETS");
+      // include.add("LICENCES");
+      include.add("PAPETERIE");
    }
 
    // private void initList() {
@@ -43,6 +54,14 @@ public class SpeedUpExclusionHelper {
       // exclude.add("PROMOTION");
       // exclude.add("SUPER%20PROMO");
       // exclude.add("UEFA%20EURO");
+   }
+
+   public ArrayList<String> getInclude() {
+      return include;
+   }
+
+   public void setInclude(ArrayList<String> include) {
+      this.include = include;
    }
 
    public ArrayList<String> getExclude() {

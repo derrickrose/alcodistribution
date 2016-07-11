@@ -184,11 +184,12 @@ public class CrawlOffer {
    }
 
    private String cleanCategory(String category) {
-      if (category != null && category.contains(">")) {
-         category = category.substring(category.lastIndexOf(">") + 1).trim();
-         // category = category.substring(0,category.indexOf(" ")).trim();
-         return category;
-      } else return category != null ? category.trim() : null;
+      // if (category != null && category.contains(">")) {
+      // category = category.substring(category.lastIndexOf(">") + 1).trim();
+      // // category = category.substring(0,category.indexOf(" ")).trim();
+      // return category;
+      // } else
+      return category != null ? category.trim() : null;
    }
 
    private String getImage(final Document productPageDocument) throws Exception {

@@ -33,13 +33,28 @@ public class CrawlHome {
             String url = data.attr("href");
             System.out.println("Url :" + url);
             boolean toExclude = false;
-            for (String str : sph.getExclude()) {
-               if (url.contains(str)) {
-                  toExclude = true;
-                  break;
+            boolean inClude = false;
+
+            if (sph.getInclude().size() > 0) {
+               for (String str : sph.getInclude()) {
+                  if (url.contains(str)) {
+                     inClude = true;
+                     break;
+                  }
                }
             }
-            if (toExclude) {
+            if (sph.getExclude().size() > 0) {
+               for (String str : sph.getExclude()) {
+                  if (url.contains(str)) {
+                     toExclude = true;
+                     break;
+                  }
+               }
+            }
+
+            // System.err.println("" + sph.getInclude().size() + " " + inClude);
+
+            if ((sph.getInclude().size() > 0 && inClude == false) || toExclude == true) {
                System.err.println("toexclude : " + url);
             } else {
                allListing.add(cleanPath(url));
